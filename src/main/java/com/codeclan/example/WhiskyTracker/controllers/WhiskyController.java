@@ -23,6 +23,9 @@ public class WhiskyController {
     ) {
         if (year != null) {
             return new ResponseEntity<>(whiskyRepository.findWhiskiesByYear(Integer.parseInt(year)), HttpStatus.OK);
+        } else if (region!=null && distillery_id==null && age==null && year==null) {
+            region = region.substring(0, 1).toUpperCase() + region.substring(1, region.length()).toLowerCase();
+            return new ResponseEntity<>(whiskyRepository.findWhiskiesByDistilleryRegion(region), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(whiskyRepository.findAll(), HttpStatus.OK);
         }
